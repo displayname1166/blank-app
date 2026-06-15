@@ -76,7 +76,7 @@ if submit:
                 
             other_student_classes = master_sheet.iloc[i, 1:].tolist()
             
-            matches = {i: item1 for i, (item1, item2) in enumerate(zip(list1, list2)) if item1 == item2}
+            matches = {i: item1 for i, (item1, item2) in enumerate(zip(user_classes, other_student_classes)) if item1 == item2}
             
             if matches:
                 st.write(matches)
