@@ -78,7 +78,9 @@ if submit:
         name_list = master_sheet["Name"].tolist()
 
         for i in len(master_sheet):
-            matches = [item1 for item1, item2 in zip(list1, list2) if item1 == item2]
+            row_match = master_sheet.iloc[i].tolist()
+            matches = [item1 for item1, item2 in zip(user_classes, row_match) if item1 == item2]
+            st.write(matches)
 
 if st.session_state.saved_name == "john dingleberry":
     st.write("### Master Class List")
