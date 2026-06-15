@@ -79,3 +79,5 @@ if submit:
 # if st.session_state.saved_name == "john dingleberry":
 st.write("### Master Class List")
 st.dataframe(master_sheet)
+
+st.write(len(master_sheet))
