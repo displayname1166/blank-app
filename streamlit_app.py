@@ -103,8 +103,6 @@ if submit:
                     
                     if students_list:
                         st.write(f"{letter}: {', '.join(students_list)}")
-                    else:
-                        st.write(f"{letter}: No matches yet")
 
 if st.session_state.saved_name == "john dingleberry":
     st.write("### Master Class List")
