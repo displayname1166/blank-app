@@ -79,9 +79,32 @@ if submit:
             matches = {i: item1 for i, (item1, item2) in enumerate(zip(user_classes, other_student_classes)) if item1 == item2}
             
             if matches:
-                st.write(matches)
-            else:  
-                st.write("No matches, check back later.")
+                block_letters = ["A", "B", "C", "D", "E", "F", "G"]
+        
+                block_matches = {letter: [] for letter in block_letters}
+                
+                for i in range(len(master_sheet)):
+                    other_student_name = master_sheet.iloc[i, 0]
+                    
+                    if other_student_name == st.session_state.saved_name:
+                        continue
+                        
+                    other_student_classes = master_sheet.iloc[i, 1:].tolist()
+                    
+                    for idx, letter in enumerate(block_letters):
+                        user_class = user_classes[idx]
+                        other_class = other_student_classes[idx]
+                        
+                        if user_class == other_class and user_class != "" and pd.notna(user_class):
+                            block_matches[letter].append(f'"{other_student_name}"')
+                
+                for letter in block_letters:
+                    students_list = block_matches[letter]
+                    
+                    if students_list:
+                        st.write(f"{letter}: {', '.join(students_list)}")
+                    else:
+                        st.write(f"{letter}: No matches yet")
 
 if st.session_state.saved_name == "john dingleberry":
     st.write("### Master Class List")
