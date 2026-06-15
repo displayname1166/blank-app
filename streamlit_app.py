@@ -6,9 +6,12 @@ user_classes = []
 
 sheet_path = "sheet.xlsx"
 
-dingus = pd.read_excel("sheet.xlsx")
+master_sheet = pd.read_excel("sheet.xlsx")
 
 st.title("WA 27-28 Class Doc")
+
+if "saved_name" not in st.session_state:
+    st.session_state.saved_name = ""
 
 st.write(
     "Input your name into the box below and submit. Then, add your classes into the \"Class\" column of the table **exactly as written on your schedule** and submit them by pressing the button below."
@@ -27,11 +30,13 @@ df = pd.DataFrame(
 )
 
 with st.form("entry_form"):
-    name = st.text_input("Name")
+    name = st.text_input("Name", value=st.session_state.saved_name)
     submit = st.form_submit_button("Submit")
 
     if submit:
-        user_name = name
+        st.session_state.saved_name = name
+
+st.write(st.session_state.saved_name)
 
 edited_df = st.data_editor(
     df, 
@@ -53,9 +58,25 @@ edited_df = st.data_editor(
 submit = st.button("Submit")
 
 if submit:
-    user_classes = edited_df["Class"].tolist()
+    if not st.session_state.saved_name:
+        st.error("Please enter and submit your name above before saving your schedule!")
+    else:
+        name_column = master_sheet.columns[0]
+        name_exists = st.session_state.saved_name in master_sheet[name_column].values
+        user_classes = edited_df["Class"].tolist()
+        row_data = [st.session_state.saved_name] + user_classes
+        new_row = pd.DataFrame([row_data]) 
+        new_row.columns = master_sheet.columns[:len(row_data)] 
 
-st.write(user_classes)
+        if name_exists:
+            # Remove the old row where the name matches
+            master_sheet = master_sheet[master_sheet[name_column] != st.session_state.saved_name]
+            st.warning(f"Existing schedule for '{st.session_state.saved_name}' was overwritten.")
+        else:
+            st.success("Schedule saved successfully!")
+
+        master_sheet = pd.concat([master_sheet, new_row], ignore_index=True)
+        master_sheet.to_excel(sheet_path, index=False)
 
 st.write("### Current Spreadsheet Content")
-st.dataframe(dingus)
+st.dataframe(master_sheet)
