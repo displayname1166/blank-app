@@ -14,7 +14,7 @@ if "saved_name" not in st.session_state:
     st.session_state.saved_name = ""
 
 st.write(
-    "Input your name into the box below and submit. Then, add your classes into the \"Class\" column of the table **exactly as written on your schedule (no typos, capitalized correctly, etc.)** and submit them by pressing the button below."
+    "Input your name into the box below and submit. Then, add your classes into the \"Class\" column of the table **exactly as written on your schedule (no typos, capitalized correctly, etc.) but without course numbers** and submit them by pressing the button below."
 )
 
 df = pd.DataFrame(
@@ -67,7 +67,6 @@ if submit:
         new_row.columns = master_sheet.columns[:len(row_data)] 
 
         if name_exists:
-            # Remove the old row where the name matches
             master_sheet = master_sheet[master_sheet[name_column] != st.session_state.saved_name]
             st.warning(f"Existing schedule for '{st.session_state.saved_name}' was overwritten.")
         else:
@@ -76,8 +75,11 @@ if submit:
         master_sheet = pd.concat([master_sheet, new_row], ignore_index=True)
         master_sheet.to_excel(sheet_path, index=False)
 
+        name_list = master_sheet["Name"].tolist()
+
+        for i in len(master_sheet):
+            matches = [item1 for item1, item2 in zip(list1, list2) if item1 == item2]
+
 if st.session_state.saved_name == "john dingleberry":
     st.write("### Master Class List")
     st.dataframe(master_sheet)
-
-st.write(len(master_sheet))
