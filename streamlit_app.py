@@ -79,7 +79,7 @@ if submit:
             matches = [item1 for item1, item2 in zip(user_classes, other_student_classes) if item1 == item2 and item1 != ""]
             
             if matches:
-                st.write({matches})
+                st.write(matches)
             else:  
                 st.write("No matches, check back later.")
 
