@@ -76,8 +76,8 @@ if submit:
         master_sheet = pd.concat([master_sheet, new_row], ignore_index=True)
         master_sheet.to_excel(sheet_path, index=False)
 
-# if st.session_state.saved_name == "john dingleberry":
-st.write("### Master Class List")
-st.dataframe(master_sheet)
+if st.session_state.saved_name == "john dingleberry":
+    st.write("### Master Class List")
+    st.dataframe(master_sheet)
 
 st.write(len(master_sheet))
