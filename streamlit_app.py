@@ -96,7 +96,7 @@ if submit:
                         other_class = other_student_classes[idx]
                         
                         if user_class == other_class and user_class != "" and pd.notna(user_class):
-                            block_matches[letter].append({other_student_name})
+                            block_matches[letter].append{other_student_name)
                 
                 for letter in block_letters:
                     students_list = block_matches[letter]
