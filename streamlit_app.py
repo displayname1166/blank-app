@@ -14,7 +14,7 @@ if "saved_name" not in st.session_state:
     st.session_state.saved_name = ""
 
 st.write(
-    "Input your name into the box below and submit. Then, add your classes into the \"Class\" column of the table **exactly as written on your schedule** and submit them by pressing the button below."
+    "Input your name into the box below and submit. Then, add your classes into the \"Class\" column of the table **exactly as written on your schedule (no typos, capitalized correctly, etc.)** and submit them by pressing the button below."
 )
 
 df = pd.DataFrame(
