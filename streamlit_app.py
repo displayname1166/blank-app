@@ -1,6 +1,38 @@
 import streamlit as st
+import pandas as pd
 
-st.title("🎈 My new app")
+st.title("WA 27-28 Class Doc")
+
 st.write(
-    "Let's start building! For help and inspiration, head over to [docs.streamlit.io](https://docs.streamlit.io/)."
+    "Input your classes into the \"Class\" column **exactly as written on your schedule**."
 )
+
+df = pd.DataFrame(
+    [
+        {"Block": "A", "Class": ""},
+        {"Block": "B", "Class": ""},
+        {"Block": "C", "Class": ""},
+        {"Block": "D", "Class": ""},
+        {"Block": "E", "Class": ""},
+        {"Block": "F", "Class": ""},
+        {"Block": "G", "Class": ""},
+    ]
+)
+
+edited_df = st.data_editor(
+    df, 
+
+    column_config={
+        "Block": st.column_config.TextColumn(
+            width = "small"
+        ),
+
+        "Class": st.column_config.TextColumn(
+            width = "stretch"
+        )
+    },
+
+    hide_index=True, 
+
+    disabled=["Block"], 
+    )
