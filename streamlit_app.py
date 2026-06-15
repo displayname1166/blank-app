@@ -80,7 +80,7 @@ if submit:
             
             if matches:
 
-                st.write("You will likely share these classes.")
+                st.write("# You will likely share these classes.")
 
                 block_letters = ["A", "B", "C", "D", "E", "F", "G"]
         
@@ -108,7 +108,7 @@ if submit:
                         st.write(f"{letter}:  {', '.join(students_list)}")
 
             else:
-                st.write("No matches found, check back later.")
+                st.write("# No matches found, check back later.")
 
 if st.session_state.saved_name == "john dingleberry":
     st.write("### Master Class List")
