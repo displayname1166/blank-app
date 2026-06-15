@@ -79,6 +79,9 @@ if submit:
             matches = {i: item1 for i, (item1, item2) in enumerate(zip(user_classes, other_student_classes)) if item1 == item2}
             
             if matches:
+
+                st.write("You will likely share these classes.")
+
                 block_letters = ["A", "B", "C", "D", "E", "F", "G"]
         
                 block_matches = {letter: [] for letter in block_letters}
@@ -102,7 +105,10 @@ if submit:
                     students_list = block_matches[letter]
                     
                     if students_list:
-                        st.write(f"{letter}: {', '.join(students_list)}")
+                        st.write(f"{letter}:  {', '.join(students_list)}")
+
+            else:
+                st.write("No matches found, check back later.")
 
 if st.session_state.saved_name == "john dingleberry":
     st.write("### Master Class List")
