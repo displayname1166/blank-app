@@ -77,8 +77,8 @@ if submit:
 
         name_list = master_sheet["Name"].tolist()
 
-        for i in len(master_sheet):
-            row_match = master_sheet.iloc[i].tolist()
+        for i in range(len(master_sheet)):
+            row_match = master_sheet.iloc[i, 1:].tolist()
             matches = [item1 for item1, item2 in zip(user_classes, row_match) if item1 == item2]
             st.write(matches)
 
