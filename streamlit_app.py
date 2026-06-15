@@ -24,15 +24,14 @@ edited_df = st.data_editor(
 
     column_config={
         "Block": st.column_config.TextColumn(
-            width = "small"
+            width = -400
         ),
 
         "Class": st.column_config.TextColumn(
-            width = "stretch"
         )
     },
 
     hide_index=True, 
 
     disabled=["Block"], 
-    )
+ )
