@@ -38,26 +38,19 @@ with st.form("entry_form"):
 
 edited_df = st.data_editor(
     df, 
-
     column_config={
-        "Block": st.column_config.TextColumn(
-            width = -400
-        ),
-
-        "Class": st.column_config.TextColumn(
-        )
+        "Block": st.column_config.TextColumn(width=-400),
+        "Class": st.column_config.TextColumn()
     },
-
     hide_index=True, 
-
     disabled=["Block"], 
- )
+)
 
 submit = st.button("Submit")
 
 if submit:
     if not st.session_state.saved_name:
-        st.error("Please enter and submit your name above before saving your schedule!")
+        st.error("Enter and submit your name above before saving your schedule.")
     else:
         name_column = master_sheet.columns[0]
         name_exists = st.session_state.saved_name in master_sheet[name_column].values
@@ -70,17 +63,23 @@ if submit:
             master_sheet = master_sheet[master_sheet[name_column] != st.session_state.saved_name]
             st.warning(f"Existing schedule for '{st.session_state.saved_name}' was overwritten.")
         else:
-            st.success("Schedule saved successfully!")
+            st.success("Schedule saved successfully.")
 
         master_sheet = pd.concat([master_sheet, new_row], ignore_index=True)
         master_sheet.to_excel(sheet_path, index=False)
-
-        name_list = master_sheet["Name"].tolist()
-
+        
         for i in range(len(master_sheet)):
-            row_match = master_sheet.iloc[i, 1:].tolist()
-            matches = [item1 for item1, item2 in zip(user_classes, row_match) if item1 == item2]
-            st.write(matches)
+            other_student_name = master_sheet.iloc[i, 0]
+            
+            if other_student_name == st.session_state.saved_name:
+                continue
+                
+            other_student_classes = master_sheet.iloc[i, 1:].tolist()
+            
+            matches = [item1 for item1, item2 in zip(user_classes, other_student_classes) if item1 == item2 and item1 != ""]
+            
+            if matches:
+                st.write(f"You share **{len(matches)}** matching periods with **{other_student_name}**: `{matches}`")
 
 if st.session_state.saved_name == "john dingleberry":
     st.write("### Master Class List")
