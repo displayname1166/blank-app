@@ -80,6 +80,10 @@ if submit:
             
             if matches:
                 st.write(f"You share **{len(matches)}** matching periods with **{other_student_name}**: `{matches}`")
+                for match in matches:
+                    st.write(f"- {match}")
+            else:  
+                st.write("No matches, check back later.")
 
 if st.session_state.saved_name == "john dingleberry":
     st.write("### Master Class List")
