@@ -78,5 +78,5 @@ if submit:
         master_sheet = pd.concat([master_sheet, new_row], ignore_index=True)
         master_sheet.to_excel(sheet_path, index=False)
 
-st.write("### Current Spreadsheet Content")
+st.write("### Master Class List")
 st.dataframe(master_sheet)
